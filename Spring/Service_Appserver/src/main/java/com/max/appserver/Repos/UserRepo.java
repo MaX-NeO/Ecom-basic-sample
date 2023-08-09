@@ -3,11 +3,11 @@ package com.max.appserver.Repos;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.max.appserver.Models.User;
+import com.max.appserver.Models.Users;
 
-public interface UserRepo extends JpaRepository<User, Long> {
+public interface UserRepo extends JpaRepository<Users, Long> {
     @Query(value = "SELECT COUNT(*) FROM user", nativeQuery = true)
     int getUserCount();
 
-	User findByEmail(String email);
+	Users findByEmail(String email);
 }

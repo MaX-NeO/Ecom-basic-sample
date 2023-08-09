@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.max.appserver.Models.Orders;
-import com.max.appserver.Models.User;
+import com.max.appserver.Models.Users;
 import com.max.appserver.Repos.OrderRepo;
 import com.max.appserver.Repos.UserRepo;
 
@@ -35,7 +35,7 @@ public class OrderService {
 		}
 	}
     public Orders createOrder(Orders order, Long userId) {
-        User user = urepo.findById(userId).orElse(null);
+        Users user = urepo.findById(userId).orElse(null);
         if (user != null) {
             order.setUser(user);
             return repo.save(order);

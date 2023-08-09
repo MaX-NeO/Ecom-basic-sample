@@ -20,7 +20,7 @@ public class Orders {
 
     @ManyToOne
     @JoinColumn(name = "uid")
-    private User user;
+    private Users user;
 
     public Long getIod() {
         return iod;
@@ -70,11 +70,11 @@ public class Orders {
         this.paymentmode = paymentmode;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 }

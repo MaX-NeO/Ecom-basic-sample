@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.max.appserver.Models.User;
+import com.max.appserver.Models.Users;
 import com.max.appserver.Services.UserService;
 @CrossOrigin("*")
 @RestController
@@ -25,20 +25,20 @@ public class UserController {
 	private UserService service;
 	
 	@GetMapping("/get")
-	public List<User> GetUser(){
+	public List<Users> GetUser(){
 		return service.getUser();
 	}
 	@GetMapping("/find/{id}")
-	public Optional<User> FindUser(@PathVariable Long id){
+	public Optional<Users> FindUser(@PathVariable Long id){
 		return service.findUser(id);
 	}
 	
 	@PostMapping("/add")
-	public User AddUser(@RequestBody User user) {
+	public Users AddUser(@RequestBody Users user) {
 		return service.addUser(user);
 	}
 	@PutMapping("/edit/{id}")
-	public User EditUser(@RequestBody User user,@PathVariable Long id) {
+	public Users EditUser(@RequestBody Users user,@PathVariable Long id) {
 		return service.editUser(id, user);
 	}
 	@DeleteMapping("/delete/{id}")
@@ -58,7 +58,7 @@ public class UserController {
 	    return result;
 	}
     @PostMapping("/signup")
-    public String Signup(@RequestBody User userx) {
+    public String Signup(@RequestBody Users userx) {
         return service.SignUpx(userx);
     }
 	
