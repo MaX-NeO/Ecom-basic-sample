@@ -1,7 +1,7 @@
 import React from 'react'
 import Topbar from './Topbar'
 import Leftbar from './Leftbar'
-import { Authcheck } from '../Auth/authcheck'
+import { Authcheck } from '../Auth/Authcheck'
 
 function Layout() {
   return (

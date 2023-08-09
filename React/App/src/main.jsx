@@ -5,6 +5,7 @@ import App from './App.jsx'
 import './assets/Style.css'
 import './assets/Colors.css'
 import './assets/Layout.css'
+import 'react-toastify/dist/ReactToastify.min.css';
 import { Provider } from 'react-redux'
 import store from './redux/store.js'
 

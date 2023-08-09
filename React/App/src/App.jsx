@@ -37,8 +37,6 @@ const App = () => {
         <Route exact path='/user/dashboard' element={<UserPanel/>}/>
         <Route exact path='/user/settings' element={<Settings/>}/>
 
-
-
         <Route exact path='/admin/dashboard' element={<Dashboard />} />
         <Route exact path='/admin/login' element={<AdminLogin />} />
 
@@ -46,7 +44,6 @@ const App = () => {
         <Route exact path='/admin/product/add' element={<AddProduct />} />
         <Route exact path='/admin/product/edit/:productId' element={<EditProduct />} />
 
-        
         <Route exact path='/admin/users/view' element={<ViewUsers/>}/>
         <Route exact path='/admin/user/edit/:userId' element={<EditUser />} />
 

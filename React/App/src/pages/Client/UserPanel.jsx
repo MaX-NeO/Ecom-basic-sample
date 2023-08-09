@@ -8,16 +8,23 @@ import { getUserOrders } from '../../service/api'
 
 
 const UserPanel = () => {
-    const [orders,setOrders] = useState([])
+    const [orders, setOrders] = useState([])
     const uid = Cookies.get('xuserID')
-    const fetchorders = async()=>{
-        const response = await getUserOrders(uid)
-        setOrders(response.data)
+
+    const fetchOrders = async () => {
+        try {
+            const response = await getUserOrders(uid)
+            setOrders(response.data)
+        } catch (error) {
+            console.error("Error fetching user orders:", error)
+        }
     }
+
     console.log(orders)
-    useEffect(()=>{
-        fetchorders()
-    },[])
+
+    useEffect(() => {
+        fetchOrders()
+    }, [])
     return (
         <>
             <UserAuth />
@@ -27,36 +34,42 @@ const UserPanel = () => {
                 <div className='titlebar'>
                     Order History
                 </div>
-                <div className='shadow bg-white'>
-                        <table className='data-table'>
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Date
-                                    </th>
-                                    <th>
-                                        Products
-                                    </th>
-                                    <th>
-                                        Deliver Location
-                                    </th>
-                                    <th>
-                                        Total
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {orders.map((order) => (
+                <div className='shadow bg-white data-table-container'>
+                    <table className='data-table'>
+                        <thead className='data-table-thead shadow'>
+                            <tr>
+                                <th>
+                                    Date
+                                </th>
+                                <th>
+                                    Products
+                                </th>
+                                <th>
+                                    Deliver Location
+                                </th>
+                                <th>
+                                    Total
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Array.isArray(orders) && orders.length > 0 ? (
+                                orders.map((order) => (
                                     <tr key={order.oid}>
                                         <td>{order.orderdate}</td>
                                         <td>{order.orderproducts}</td>
                                         <td>{order.orderaddress}</td>
                                         <td>{order.ordertotal}</td>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="4">No orders found.</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
             <Footer />

@@ -2,8 +2,8 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { getProduct, deleteProduct } from '../../../service/api';
 import { useNavigate } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
-import { Trash, FileEdit, PlusCircle, Mail, Power } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify';
+import { Trash, FileEdit, PlusCircle } from 'lucide-react';
 import Layout from '../Layout/Layout';
 const ViewProducts = () => {
   const navigate = useNavigate();
@@ -31,7 +31,16 @@ const ViewProducts = () => {
       const res = await deleteProduct(id);
       console.log(res.status)
       if (res.status == 200) {
-        toast.success('Successfully Product Deleted !');
+        toast.success(`Product Deleted Successfully !`, {
+          position: "bottom-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
       fetchProducts();
     }
@@ -50,9 +59,9 @@ const ViewProducts = () => {
     <>
       <Layout />
       <div className='mainx'>
-        <div className='shadow bg-white'>
+        <div className='shadow bg-white data-table-container'>
           <table className='data-table'>
-            <thead>
+            <thead className='data-table-thead shadow'>
               <tr>
                 <th>
                   Product
@@ -74,7 +83,7 @@ const ViewProducts = () => {
             <tbody>
               {products.map((product) => (
                 <tr key={product.pid}>
-                  <td> <img src={product.productimage} className='mini-product-img'/></td>
+                  <td> <img src={product.productimage} className='mini-product-img' /></td>
                   <td>{product.productname}</td>
                   <td>{product.productprice}</td>
                   <td>{product.productquantity}</td>
@@ -87,8 +96,19 @@ const ViewProducts = () => {
             </tbody>
           </table>
         </div>
-        <Toaster />
 
+        <ToastContainer
+          position="bottom-right"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
         {/* <button onClick={routeLogout} className='route-btn-2 bg-white'><Power color="#ff0000" /></button> */}
         <button onClick={routeAdd} className='route-btn-1 bg-white'><PlusCircle color="#25db00" /></button>
       </div>

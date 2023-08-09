@@ -2,9 +2,10 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { getUser, deleteUser } from '../../../service/api';
 import { useNavigate } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
-import { Trash, FileEdit, PlusCircle, Mail, Power } from 'lucide-react';
+import { Trash, FileEdit } from 'lucide-react';
 import Layout from '../Layout/Layout';
+import { ToastContainer, toast } from 'react-toastify';
+
 const ViewUsers = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
@@ -26,33 +27,36 @@ const ViewUsers = () => {
   const handleEdit = (id) => {
     navigate(`/admin/user/edit/${id}`);
   }
-  const handleDelete = async (id) => {
+  const handleDelete = async (id,namex) => {
     try {
       const res = await deleteUser(id);
       console.log(res.status)
       if (res.status == 200) {
-        toast.success('Successfully User Deleted !');
+        toast.success(`${namex} deleted successfully !`, {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
-      fetchusers();
+      fetchUsers();
     }
     catch (error) {
       console.log(error);
     }
   }
 
-  // const routeAdd = () => {
-  //   navigate('/admin/user/add')
-  // }
-  // const routeLogout = () => {
-  //   navigate('/')
-  // }
   return (
     <>
       <Layout />
       <div className='mainx'>
-        <div className='shadow bg-white'>
+        <div className='shadow bg-white data-table-container'>
           <table className='data-table'>
-            <thead>
+            <thead className='data-table-thead shadow'>
               <tr>
 
                 <th>
@@ -81,17 +85,25 @@ const ViewUsers = () => {
                   <td>{user.password}</td>
                   <td>
                     <button className='data-btn-mini bg-white shadow' onClick={() => handleEdit(user.uid)}><FileEdit color="#0040ff" /></button>
-                    <button className='data-btn-mini bg-white shadow' onClick={() => handleDelete(user.uid)}><Trash color="#ff0000" /></button>
+                    <button className='data-btn-mini bg-white shadow' onClick={() => handleDelete(user.uid, user.name)}><Trash color="#ff0000" /></button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <Toaster />
-
-        {/* <button onClick={routeLogout} className='route-btn-2 bg-white'><Power color="#ff0000" /></button> */}
-        {/* <button onClick={routeAdd} className='route-btn-1 bg-white'><PlusCircle color="#25db00" /></button> */}
+        <ToastContainer
+          position="bottom-right"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </div>
 
     </>

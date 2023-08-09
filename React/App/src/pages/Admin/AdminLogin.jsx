@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { adminLogin } from '../../service/api';
 import { Home } from 'lucide-react';
 import Cookies from 'js-cookie';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
@@ -26,18 +27,46 @@ export default function AdminLogin() {
 
             Cookies.set('emailz', signin.email);
             Cookies.set('isAdmin', 'true');
-            // setTimeout(() => {
-            navigate('/admin/dashboard');
-            // }, 1500);
+            toast.success(`Welcome Admin !`, {
+                position: "bottom-right",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+            setTimeout(() => {
+                navigate('/admin/dashboard');
+            }, 1500);
 
         } else if (res.data === "Invalid Password") {
-            console.log('invalid pass');
+            toast.error(`Invalid Password`, {
+                position: "bottom-right",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
         } else {
-            console.log('invalid email')
+            toast.error(`Invalid Email`, {
+                position: "bottom-right",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
         }
     };
 
-    const routeHome = ()=>{
+    const routeHome = () => {
         navigate('/')
     }
     return (
@@ -54,7 +83,18 @@ export default function AdminLogin() {
                 </div>
             </div>
             <button onClick={routeHome} className='route-btn-1 bg-white shadow'><Home color="#a600ff" /></button>
-
+            <ToastContainer
+                position="bottom-right"
+                autoClose={4000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </>
     )
 }

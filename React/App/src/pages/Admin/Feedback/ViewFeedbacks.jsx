@@ -2,8 +2,9 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import Layout from '../Layout/Layout';
 import { getFeedback, deleteFeedback } from '../../../service/api';
-import { Trash, PlusCircle } from 'lucide-react';
-import toast, { Toaster } from 'react-hot-toast';
+import { Trash } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify';
+
 const ViewFeedbacks = () => {
 
   const [feedbacks, setFeedbacks] = useState([]);
@@ -28,7 +29,16 @@ const ViewFeedbacks = () => {
       const res = await deleteFeedback(id);
       console.log(res.status)
       if (res.status == 200) {
-        toast.success('Successfully Feedback Deleted !');
+        toast.success(`Feedback Deleted Successfully !`, {
+          position: "bottom-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
       fetchFeedbacks();
     }
@@ -43,9 +53,9 @@ const ViewFeedbacks = () => {
       <Layout />
       <div className='mainx'>
 
-        <div className='shadow bg-white'>
-          <table className='data-table'>
-            <thead>
+        <div className='shadow bg-white data-table-container'>
+          <table className='data-table '>
+            <thead className='data-table-thead shadow'>
               <tr>
                 <th>
                   Feedback ID
@@ -83,9 +93,19 @@ const ViewFeedbacks = () => {
             </tbody>
           </table>
         </div>
-        <Toaster />
       </div>
-
+      <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   )
 }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addProduct } from '../../../service/api';
 import { ChevronLeftCircle } from 'lucide-react';
-import toast, { Toaster } from 'react-hot-toast';
+import { ToastContainer, toast } from 'react-toastify';
 import Layout from '../Layout/Layout';
 import FileUploader from '../../../components/FileUploader';
 
@@ -33,7 +33,16 @@ const AddProduct = () => {
       const res = await addProduct(ProductData);
       
       if (res.status == 200) {
-        toast.success('Product Added Successfully !');
+        toast.success(`Product Added Successfully !`, {
+          position: "bottom-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         setTimeout(() => {
           navigate('/admin/products/view')
         }, 1000)
@@ -65,13 +74,17 @@ const AddProduct = () => {
 
         <button onClick={routeBack} className='route-btn-1 bg-white'><ChevronLeftCircle color="#25db00" /></button>
       </div>
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-        gutter={8}
-        toastOptions={{
-          duration: 500,
-        }}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
       />
     </>
   )
